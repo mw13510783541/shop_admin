@@ -3,7 +3,17 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 // 引入用户管理组件
-import Users from '@/components/Users'
+import Users from '@/components/users/Users'
+// 引入权限管理组件
+import Rights from '@/components/rights/Rights'
+// 引入角色权限组件
+import Roles from '@/components/rights/Roles'
+// 引入商品分类组件
+import Categories from '@/components/products/Categories'
+// 引入商品列表模块
+import Goods from '@/components/products/Goods'
+// 引入商品添加组件Add.vue
+import Add from '@/components/products/Add'
 
 Vue.use(Router)
 const router = new Router({
@@ -28,6 +38,31 @@ const router = new Router({
           path: '/users',
           name: 'users',
           component: Users
+        },
+        {
+          path: '/rights',
+          name: 'rights',
+          component: Rights
+        },
+        {
+          path: '/roles',
+          name: 'roles',
+          component: Roles
+        },
+        {
+          path: '/categories',
+          name: 'categories',
+          component: Categories
+        },
+        {
+          path: '/goods',
+          name: 'goods',
+          component: Goods
+        },
+        {
+          path: '/goods-add',
+          name: 'goods-add',
+          component: Add
         }
       ]
     }

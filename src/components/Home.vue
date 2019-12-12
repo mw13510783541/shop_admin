@@ -10,8 +10,9 @@
   </el-header>
   <el-container>
     <el-aside width="200px">
+      <!-- 左侧菜单 -->
        <el-menu
-      default-active="2"
+      :default-active="$route.path.slice(1).split('-')[0]"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
@@ -20,26 +21,26 @@
       active-text-color="#ffd04b"
       unique-opened
       router>
-      <el-submenu index="1">
+      <el-submenu v-for="menu in menuList" :key="menu.id" :index="menu.path">
         <template slot="title">
           <i class="el-icon-location"></i>
-          <span>用户管理</span>
+          <span>{{menu.authName}}</span>
         </template>
-        <el-menu-item index="/users">
+        <el-menu-item v-for="item in menu.children" :key="item.id" :index="item.path">
         <i class="el-icon-menu"></i>
-        <span slot="title">用户列表</span>
+        <span slot="title">{{item.authName}}</span>
       </el-menu-item>
       </el-submenu>
-      <el-submenu index="2">
+      <!-- <el-submenu index="2">
       <template slot="title">
         <i class="el-icon-location"></i>
         <span>管理权限</span>
       </template>
-      <el-menu-item index="2-1">
+      <el-menu-item index="/roles">
       <i class="el-icon-menu"></i>
       <span slot="title">角色列表</span>
     </el-menu-item>
-      <el-menu-item index="2-2">
+      <el-menu-item index="/rights">
       <i class="el-icon-menu"></i>
       <span slot="title">权限列表</span>
     </el-menu-item>
@@ -73,9 +74,9 @@
       <i class="el-icon-menu"></i>
       <span slot="title">订单列表</span>
     </el-menu-item>
-    </el-submenu>
+    </el-submenu> -->
 
-    <el-submenu index="5">
+    <!-- <el-submenu index="5">
       <template slot="title">
         <i class="el-icon-location"></i>
         <span>数据统计</span>
@@ -84,7 +85,8 @@
       <i class="el-icon-menu"></i>
       <span slot="title">数据列表</span>
     </el-menu-item>
-    </el-submenu>
+    </el-submenu> -->
+
     </el-menu>
     </el-aside>
     <el-main>
@@ -97,12 +99,17 @@
 
 <script>
 export default {
+  data () {
+    return {
+      menuList: []
+    }
+  },
   methods: {
     handleOpen(key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
     },
     logout() {
       this.$confirm('此操作将退出登录, 是否继续?', '提示', {
@@ -116,6 +123,17 @@ export default {
       }).catch(() => {
         this.$message.success('退出取消')
       })
+    }
+  },
+  async created () {
+    // 用户登录，动态渲染列表权限
+    let res = await this.axios.get('menus')
+    let {meta: {status}, data} = res.data
+    if (status === 200) {
+      // 登陆成功
+      this.menuList = data
+      // console.log(this.menuList)
+      this.$message.success('用户登录成功')
     }
   }
 }

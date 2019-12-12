@@ -26,6 +26,7 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // 用于关闭函数扩号前面的校验
-    'space-before-function-paren' : 0
+    'space-before-function-paren' : 0,
+    // 'camelcase': ['error', {'allow': ['aa_bb']}]
   }
 }

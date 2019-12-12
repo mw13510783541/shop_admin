@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+  <script src="../node_modules/axios/dist/axios.js"></script>
+  <script>
+     
+    //  function fn(){
+    //    axios.get('./data1.json').then(res => {
+    //      console.log(res.data);    
+    //    })
+    //  }
+
+    // 改写async
+    async function fn(){
+      const res1 = await axios.get('./data1.json')
+      console.log(res1.data )
+      
+     }
+     fn()
+   
+
+  </script>
+
+</html>

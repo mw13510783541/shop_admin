@@ -54,34 +54,33 @@ export default {
       this.$refs.form.resetFields()
     },
     submitForm (form) {
-      this.$refs.form.validate(valid => {
+      this.$refs.form.validate(async valid => {
         if (valid) {
           // 提交表单
-          this.axios({
+          let res = await this.axios({
             url: 'login',
             method: 'post',
             data: this.form
-          }).then(res => {
-            console.log(res.data)
-            if (res.data.meta.status === 200) {
-              // 登陆成功，跳转到首页
-              //  console.log('登陆成功');
-              this.$message({
-                message: '登陆成功',
-                type: 'success',
-                duration: 1000
-              })
-              // 浏览器储存token
-              // console.log(res.data.data.token)
-              localStorage.setItem('token', res.data.data.token)
-              // 跳转首页
-              this.$router.push('/home')
-            } else {
-              // 登陆失败
-              this.$message.error('登陆失败')
-              // console.log("登陆失败")
-            }
           })
+          console.log(res.data)
+          if (res.data.meta.status === 200) {
+            // 登陆成功，跳转到首页
+            //  console.log('登陆成功');
+            this.$message({
+              message: '登陆成功',
+              type: 'success',
+              duration: 1000
+            })
+            // 浏览器储存token
+            // console.log(res.data.data.token)
+            localStorage.setItem('token', res.data.data.token)
+            // 跳转首页
+            this.$router.push('/home')
+          } else {
+            // 登陆失败
+            this.$message.error('登陆失败')
+            // console.log("登陆失败")
+          }
         } else {
           console.log('error submit!!')
           return false

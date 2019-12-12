@@ -7,9 +7,22 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // 引入login样式
 import '@/assets/common.css'
-
+// 引入moment
+import moment from 'moment'
 // 引入axios
 import axios from 'axios'
+// 导入富文本编辑器
+import VueQuillEditor from 'vue-quill-editor'
+// 导入富文本编辑器的css
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+Vue.use(VueQuillEditor)
+
+// 定义过滤器
+Vue.filter('dateFilter', (input, format = 'YYYY-MM-DD HH:mm:ss') => {
+  return moment(input * 1000).format(format)
+})
 // 将axios 挂载到Vue原型上
 Vue.prototype.axios = axios
 // 给axios添加请求拦截器
